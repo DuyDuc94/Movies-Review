@@ -1,0 +1,86 @@
+.card {
+    margin: 0.5rem;
+    position: relative;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+    transition: transform .2s;
+    overflow: hidden;
+    cursor: pointer;
+    height: 40vh;
+    width: 13vw;
+    z-index: 0;
+    color: "white";
+}
+
+.card_skeleton {
+    margin: 0.5rem;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 40vh;
+    width: 13vw;
+}
+
+.card:hover {
+    transform: scale(1.2);
+    z-index: 1;
+    box-shadow:
+        rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px,
+        rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px,
+        rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card_img {
+    height: 100%;
+    width: 100%;
+}
+
+.card_overlay {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    padding: 20vh 1rem 1rem 1rem;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: linear-gradient(rgb(0, 0, 0, 0), rgb(0, 0, 0, 1));
+    transition: opacity .5s;
+    opacity: 0;
+}
+
+.card_overlay:hover {
+    opacity: 1;
+}
+
+.card_title {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.card_release_date {
+    font-size: .75rem;
+    margin-bottom: 0.25rem;
+}
+
+.card_rating {
+    float: right;
+}
+
+.card_description {
+    font-style: italic;
+    font-size: .75rem;
+    margin-bottom: 0.25rem;
+}
+
+.crop_text_3 {
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
