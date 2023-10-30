@@ -1,0 +1,14 @@
+.header{
+	height: 10vh;
+}
+
+.logo {
+	max-height: 40px;
+	padding: 2px;
+}
+
+.nav_left_icons{
+	display: flexbox;
+	justify-content: space-between;
+	align-items: center;
+}

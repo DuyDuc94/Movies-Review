@@ -1,58 +1,70 @@
 import { useEffect, useState } from "react";
 import movieAPI from "../api/MovieAPI";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import MovieList from "../components/MovieList";
-import CarouselStyle from './css/Home.module.css';
 import { API_IMAGE_BASE_URL } from "../config/DotEnv";
+import CarouselStyle from './css/Home.module.css';
 
-export default function Home(params) {
+export default function Home() {
 	const [popularMovies, setPopularMovies] = useState([])
 
 	useEffect(() => {
-		movieAPI.get("/movie/popular?language=en-US")
-			.then(res => setPopularMovies(res.data.results))
-			.catch(err => console.log(err))
+		setTimeout(() => {
+			movieAPI.get("/movie/popular?language=en-US")
+				.then(res => setPopularMovies(res.data.results))
+				.catch(err => console.log(err))
+		}, 1000)
 	}, [])
-
-
 
 	return (
 		<>
 			<Carousel
-				showThumbs={false}
 				autoPlay={true}
 				transitionTime={3}
 				infiniteLoop={true}
 				showStatus={false}
+				useKeyboardArrows={true}
 			>
 				{
-					popularMovies.map(movie => (
-						<Link key={movie.id} style={{ textDecoration: 'none', color: 'white' }} to={`/movie/${movie.id}`} >
-							<div className={CarouselStyle.carousel}>
-								<img src={API_IMAGE_BASE_URL + '/original' + (movie && movie.backdrop_path)} alt={movie.title} />
-							</div>
-							<div className={CarouselStyle.carousel_overlay}>
-								<div className={CarouselStyle.carousel_title}>
-									{movie && movie.original_title}
+					popularMovies.length !== 0 ?
+						popularMovies.map(movie => (
+							<Link key={movie.id} style={{ textDecoration: 'none', color: 'white' }} to={`/movie/${movie.id}`} >
+								<div className={CarouselStyle.carousel}>
+									<img src={API_IMAGE_BASE_URL + '/original' + (movie && movie.backdrop_path)} alt={movie.title} />
+									<div className={CarouselStyle.carousel_top_overlay}>
+									</div>
+									<div className={CarouselStyle.carousel_bottom_overlay}>
+										<div className={CarouselStyle.carousel_title}>
+											{movie && movie.original_title}
+										</div>
+										<div className={CarouselStyle.carousel_release_date}>
+											{movie && movie.release_date}
+											<span className={CarouselStyle.carousel_rating}>
+												{movie && movie.vote_average} <FontAwesomeIcon icon={faStar} />
+											</span>
+										</div>
+										<div className={CarouselStyle.carousel_description}>
+											{movie && movie.overview}
+										</div>
+									</div>
 								</div>
-								<div className={CarouselStyle.carousel_release_date}>
-									{movie && movie.release_date}
-									<span className={CarouselStyle.carousel_rating}>
-										{movie && movie.vote_average}
-										<i className="fas fa-star" />{" "}
-									</span>
-								</div>
-								<div className={CarouselStyle.carousel_description}>
-									{movie && movie.overview}
-								</div>
-							</div>
-						</Link>
-					))
+							</Link>
+						)) : SkeletonCarousel()
 				}
 			</Carousel>
-			{/* <MovieList /> */}
 		</>
 	)
 };
+
+function SkeletonCarousel() {
+	return (
+		<SkeletonTheme baseColor="#202020" highlightColor="#444">
+			<div className={CarouselStyle.carousel}>
+				<Skeleton height={'90vh'}/>
+			</div>
+		</SkeletonTheme>
+	);
+}
