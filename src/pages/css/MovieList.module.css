@@ -1,0 +1,11 @@
+.list_title {
+    font-size: 1.75rem;
+    margin: 2.5rem;
+}
+
+.list_cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
