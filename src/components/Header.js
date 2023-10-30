@@ -1,42 +1,58 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBell, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
-import { Row, Col, Form, Button, Nav, Dropdown } from 'react-bootstrap';
+import { Row, Col, Form, Button, Nav, Dropdown, InputGroup, Container, Navbar, NavDropdown } from 'react-bootstrap';
 import logo from '../assets/images/logo.png';
+import HeaderStyle from './css/Header.module.css';
+import { Link } from 'react-router-dom';
+
 
 export default function Header() {
 	return (
-		<Row style={{ padding: '15px 30px' }} className='justify-content-around'>
-			<Col style={{ margin: '0px 5px' }} >
-				<img src={logo} alt='logo' style={{ height: '75px' }} />
-			</Col>
-			<Col style={{ margin: '0px 5px' }} className='d-flex flex-column justify-content-center'>
-				<Form.Control type="text" placeholder="Search" />
-			</Col>
-			<Col style={{ margin: '0px 5px' }} className='d-flex flex-column justify-content-center'>
-				<Nav className='justify-content-end'>
-					<Nav.Item style={{ margin: '5px 10px' }}>
-						<Nav.Link as={Button} className='btn-circle'><FontAwesomeIcon icon={faSearch} /></Nav.Link>
-					</Nav.Item>
-					<Nav.Item style={{ margin: '5px 10px' }}>
-						<Nav.Link as={Button} className='btn-circle'><FontAwesomeIcon icon={faBell} /></Nav.Link>
-					</Nav.Item>
-					<Nav.Item style={{ margin: '5px 10px' }}>
-						<Nav.Link as={Button} className='btn-circle'><FontAwesomeIcon icon={faUser} /></Nav.Link>
-					</Nav.Item>
-					<Nav.Item style={{ margin: '5px 10px' }}>
-						<Dropdown>
-							<Dropdown.Toggle as={Button} className="btn-circle">
-								<FontAwesomeIcon icon={faBars} />
-							</Dropdown.Toggle>
-							<Dropdown.Menu>
-								<Dropdown.Item href="#">Home</Dropdown.Item>
-								<Dropdown.Item href="#">Settings</Dropdown.Item>
-								<Dropdown.Item href="#">Help</Dropdown.Item>
-							</Dropdown.Menu>
-						</Dropdown>
-					</Nav.Item>
+		<Navbar expand={'md'} sticky='top' variant='dark' className={HeaderStyle.header}>
+			<Navbar.Brand as={Link} to={'/'}>
+				<img className={HeaderStyle.logo} src={logo} alt='logo' />
+			</Navbar.Brand>
+			<Navbar.Toggle aria-controls="navbar-collapse" />
+			<Navbar.Collapse id="navbar-collapse">
+				<Nav className='mr-auto'>
+					<Nav.Link as={Link} to='/popular'>Popular</Nav.Link>
+					<Nav.Link as={Link} to='/top_rated'>Top Rated</Nav.Link>
+					<Nav.Link as={Link} to='/upcoming'>Upcoming</Nav.Link>
+					<NavDropdown title="Other" id="basic-nav-dropdown">
+						<NavDropdown.Item as={Link} to={'/1'}>Action</NavDropdown.Item>
+						<NavDropdown.Item as={Link} to={'/2'}>Another action</NavDropdown.Item>
+						<NavDropdown.Item as={Link} to={'/3'}>Something</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item as={Link} to={'/4'}>Separated link</NavDropdown.Item>
+					</NavDropdown>
 				</Nav>
-			</Col>
-		</Row>
+				<RightNav />
+			</Navbar.Collapse>
+		</Navbar>
 	);
-} 
+}
+
+function RightNav() {
+	return (
+		<>
+			<Nav.Link as={Button} className='btn-circle'>
+				<FontAwesomeIcon icon={faSearch} />
+			</Nav.Link>
+			<Nav.Link as={Button} className='btn-circle'>
+				<FontAwesomeIcon icon={faBell} />
+			</Nav.Link>
+			<Dropdown>
+				<Dropdown.Toggle as={Button} className="btn-circle">
+					<FontAwesomeIcon icon={faUser} />
+				</Dropdown.Toggle>
+				<Dropdown.Menu align={'right'}>
+					<Dropdown.Item href="#">Home</Dropdown.Item>
+					<Dropdown.Item href="#">Settings</Dropdown.Item>
+					<Dropdown.Item href="#">Help</Dropdown.Item>
+					<Dropdown.Divider />
+					<Dropdown.Item href="#">Logout</Dropdown.Item>
+				</Dropdown.Menu>
+			</Dropdown>
+		</>
+	);
+}
