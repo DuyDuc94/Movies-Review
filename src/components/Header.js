@@ -3,7 +3,7 @@ import { faSearch, faBell, faUser, faBars } from '@fortawesome/free-solid-svg-ic
 import { Row, Col, Form, Button, Nav, Dropdown, InputGroup, Container, Navbar, NavDropdown } from 'react-bootstrap';
 import logo from '../assets/images/logo.png';
 import HeaderStyle from './css/Header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import movieAPI from '../api/MovieLocalDbAPI';
 import TextStyle from '../assets/css/Text.module.css';
@@ -29,14 +29,14 @@ export default function Header() {
 			<Navbar.Toggle aria-controls="navbar-collapse" />
 			<Navbar.Collapse id="navbar-collapse">
 				<Nav className='mr-auto'>
-					<Nav.Link as={Link} to='/popular'>Popular</Nav.Link>
-					<Nav.Link as={Link} to='/top_rated'>Top Rated</Nav.Link>
-					<Nav.Link as={Link} to='/upcoming'>Upcoming</Nav.Link>
+					<Nav.Link as={NavLink} to='/popular' style={({ isActive }) => styleActiveLink(isActive)}>Popular</Nav.Link>
+					<Nav.Link as={NavLink} to='/top-rated' style={({ isActive }) => styleActiveLink(isActive)}>Top Rated</Nav.Link>
+					<Nav.Link as={NavLink} to='/upcoming' style={({ isActive }) => styleActiveLink(isActive)}>Upcoming</Nav.Link>
 					<NavDropdown title="Genres" id="basic-nav-dropdown">
 						{
 							genres.length !== 0 &&
 							genres.map(genre => (
-								<NavDropdown.Item key={genre.id} as={Link} to={`/genre/${genre.name}`}>{genre.name}</NavDropdown.Item>
+								<NavDropdown.Item key={genre.id} as={Link} to={`/genre/${genre.id}`}>{genre.name}</NavDropdown.Item>
 							))
 						}
 						{/* <NavDropdown.Divider /> */}
@@ -46,6 +46,13 @@ export default function Header() {
 			</Navbar.Collapse>
 		</Navbar>
 	);
+}
+
+function styleActiveLink(isActive) {
+	return {
+		fontWeight: isActive ? "bold" : "",
+		textDecoration: 'none',
+	};
 }
 
 function RightNav() {
