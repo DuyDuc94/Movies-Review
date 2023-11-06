@@ -12,7 +12,6 @@ export default function Card({ movie }) {
     return (
         <>
             {
-                
                 <div className={CardStyle.card}>
                     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                         <img className={CardStyle.card_img} src={movie && (API_IMAGE_BASE_URL + '/original' + movie.poster_path)} alt={movie.title} />

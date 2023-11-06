@@ -8,20 +8,35 @@ import { Link } from "react-router-dom";
 import { API_IMAGE_BASE_URL } from "../config/DotEnv";
 import CarouselStyle from './css/Home.module.css';
 
-export default function Home() {
-	const [popularMovies, setPopularMovies] = useState([])
+export default function Home({ type }) {
 
+	const [carouselMovies, setCarouselMovies] = useState([])
 	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
-		getPopularMovie();
-	}, [])
+		getCarouselMovie();
+	}, [type])
 
-	function getPopularMovie() {
+	function getCarouselMovie() {
+		let chooseType = '';
+		switch (type) {
+			case 'popular':
+				chooseType = 'view_count';
+				break;
+			case 'top-rated':
+				chooseType = 'vote_average';
+				break;
+			case 'upcoming':
+				chooseType = 'release_date';
+				break;
+			default:
+				chooseType = 'view_count';
+				break;
+		}
 		setLoading(true);
-		movieAPI.get("/movies?_sort=view_count&_order=desc&_limit=15")
+		movieAPI.get(`/movies?_sort=${chooseType}&_order=desc&_limit=15`)
 			.then(res => {
-				setPopularMovies(res.data)
+				setCarouselMovies(res.data)
 			})
 			.catch(err => console.log(err))
 			.finally(() => setLoading(false));
@@ -39,7 +54,7 @@ export default function Home() {
 			>
 				{
 					isLoading ? SkeletonCarousel() :
-						popularMovies.map(movie => (
+						carouselMovies.map(movie => (
 							<Link key={movie.id} style={{ textDecoration: 'none', color: 'white' }} to={`/movie/${movie.id}`} >
 								<div className={CarouselStyle.carousel}>
 									<img src={API_IMAGE_BASE_URL + '/original' + (movie && movie.backdrop_path)} alt={movie.title} />
