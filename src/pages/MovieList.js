@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Card from "../components/Card"
-import movieAPI from "../api/MovieAPI"
-import { Col, Container, Row } from "react-bootstrap"
+import movieAPI from "../api/MovieLocalDbAPI"
+import { Col, Container, Pagination, Row } from "react-bootstrap"
 import MovieListStyle from "./css/MovieList.module.css"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import CardStyle from "../components/css/Card.module.css"
@@ -11,22 +11,23 @@ export default function MovieList() {
 
     const { type } = useParams();
     const [movieList, setMovieList] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-        setLoading(true)
-    }, [type]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            movieAPI.get(`/movie/${type}?language=en-US`)
-                .then(res => {
-                    setMovieList(res.data.results)
-                    setLoading(false)
-                })
-                .catch(err => console.log(err))
-        }, 500)
-    }, [isLoading])
+        setLoading(true);
+        movieAPI.get(`/movies?_page=${page}&_limit=10`)
+            .then(res => {
+                console.log(res);
+                setMovieList(res.data);
+                setTotalPage(Math.ceil(parseInt(res.headers['x-total-count']) / 10));
+            })
+            .catch(err => console.log(err))
+            .finally(() =>
+                setTimeout(() => setLoading(false), 1000)
+            )
+    }, [])
 
     return (
         <Container>
@@ -42,6 +43,25 @@ export default function MovieList() {
                                 <Card movie={movie} key={movie.id} />
                             )))
                     }
+                </Col>
+            </Row>
+            <Row className="mt-5">
+                <Col>
+                    <Pagination>
+                        <Pagination.First/>
+                        <Pagination.Prev />
+                        <Pagination.Item>{1}</Pagination.Item>
+                        <Pagination.Ellipsis disabled />
+
+                        <Pagination.Item>{11}</Pagination.Item>
+                        <Pagination.Item active>{page}</Pagination.Item>
+                        <Pagination.Item>{13}</Pagination.Item>
+
+                        <Pagination.Ellipsis disabled />
+                        <Pagination.Item>{20}</Pagination.Item>
+                        <Pagination.Next />
+                        <Pagination.Last />
+                    </Pagination>
                 </Col>
             </Row>
         </Container>

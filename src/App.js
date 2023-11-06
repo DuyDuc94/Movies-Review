@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import MovieList from './pages/MovieList';
 import MovieDetail from './pages/MovieDetail';
+import Test from './pages/Test';
 
 function App() {
   return (
@@ -15,9 +16,10 @@ function App() {
           <Route index element={<Home />}></Route>
           <Route path="/:type" element={<MovieList />}></Route>
           <Route path="/movie/:id" element={<MovieDetail />}></Route>
+          <Route path="/test" element={<Test/>}></Route>
           <Route path="/*" element={<h1>Error Page</h1>}></Route>
         </Routes>
-        <Footer />
+        <Footer/>
       </BrowserRouter>
     </div>
   );

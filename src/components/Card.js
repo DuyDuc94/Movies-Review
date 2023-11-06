@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { API_IMAGE_BASE_URL } from "../config/DotEnv"
 import CardStyle from "./css/Card.module.css"
+import TextStyle from "../assets/css/Text.module.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 
@@ -20,7 +22,7 @@ export default function Card({ movie }) {
                                 {movie && movie.release_date}
                                 <span className={CardStyle.card_rating}>{movie && movie.vote_average}<FontAwesomeIcon icon={faStar} /></span>
                             </div>
-                            <div className={`${CardStyle.card_description} ${CardStyle.crop_text_3}`}>
+                            <div className={`${CardStyle.card_description} ${TextStyle.crop_text_3}`}>
                                 {movie && movie.overview}
                             </div>
                         </div>

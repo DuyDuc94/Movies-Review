@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import movieAPI from "../api/MovieAPI";
+import movieAPI from "../api/MovieLocalDbAPI";
 import { Carousel } from 'react-responsive-carousel';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -11,25 +11,34 @@ import CarouselStyle from './css/Home.module.css';
 export default function Home() {
 	const [popularMovies, setPopularMovies] = useState([])
 
+	const [isLoading, setLoading] = useState(false);
+
 	useEffect(() => {
-		setTimeout(() => {
-			movieAPI.get("/movie/popular?language=en-US")
-				.then(res => setPopularMovies(res.data.results))
-				.catch(err => console.log(err))
-		}, 1000)
+		getPopularMovie();
 	}, [])
+
+	function getPopularMovie() {
+		setLoading(true);
+		movieAPI.get("/movies?_sort=view_count&_order=desc&_limit=15")
+			.then(res => {
+				setPopularMovies(res.data)
+			})
+			.catch(err => console.log(err))
+			.finally(() => setLoading(false));
+	}
 
 	return (
 		<>
 			<Carousel
 				autoPlay={true}
+				showThumbs={false}
 				transitionTime={3}
 				infiniteLoop={true}
 				showStatus={false}
 				useKeyboardArrows={true}
 			>
 				{
-					popularMovies.length !== 0 ?
+					isLoading ? SkeletonCarousel() :
 						popularMovies.map(movie => (
 							<Link key={movie.id} style={{ textDecoration: 'none', color: 'white' }} to={`/movie/${movie.id}`} >
 								<div className={CarouselStyle.carousel}>
@@ -52,7 +61,7 @@ export default function Home() {
 									</div>
 								</div>
 							</Link>
-						)) : SkeletonCarousel()
+						))
 				}
 			</Carousel>
 		</>
@@ -63,7 +72,7 @@ function SkeletonCarousel() {
 	return (
 		<SkeletonTheme baseColor="#202020" highlightColor="#444">
 			<div className={CarouselStyle.carousel}>
-				<Skeleton height={'90vh'}/>
+				<Skeleton height={'90vh'} />
 			</div>
 		</SkeletonTheme>
 	);

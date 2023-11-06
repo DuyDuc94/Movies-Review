@@ -5,7 +5,7 @@ export default function Footer(params) {
 		<Container fluid>
 			<Row>
 				<Col>
-					<h1>This is Footer Section</h1>
+					
 				</Col>
 			</Row>
 		</Container>
