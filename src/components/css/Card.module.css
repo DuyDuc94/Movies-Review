@@ -76,11 +76,3 @@
     font-size: .75rem;
     margin-bottom: 0.25rem;
 }
-
-.crop_text_3 {
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-}
