@@ -1,6 +1,5 @@
-.list_title {
-    font-size: 1.75rem;
-    margin: 2.5rem;
+.list_header {
+    margin: 10px;
 }
 
 .list_cards {
@@ -8,4 +7,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.list_no_result{
+    height: 40vh;
+    padding-top: 20vh;
+    margin: auto;
+    text-align: center;
 }

@@ -8,63 +8,100 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import CardStyle from "../components/css/Card.module.css"
 
 export default function MovieList() {
+    const { genreId } = useParams();
 
-    const { type } = useParams();
-    const [movieList, setMovieList] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const [totalPage, setTotalPage] = useState(0);
-    const [page, setPage] = useState(1);
+    const [genre, setGenre] = useState(undefined);
+    const [pagination, setPagination] = useState({
+        'movieList': [],
+        'totalPage': 0,
+        'limit': 10,
+        'activePage': 1,
+    });
 
     useEffect(() => {
         setLoading(true);
-        movieAPI.get(`/movies?_page=${page}&_limit=10`)
+        movieAPI.get(`/genres/${genreId}`)
             .then(res => {
-                console.log(res);
-                setMovieList(res.data);
-                setTotalPage(Math.ceil(parseInt(res.headers['x-total-count']) / 10));
+                setGenre(res.data);
+            })
+            .catch(err => console.log(err))
+    }, [genreId]);
+
+    useEffect(() => {
+        getMovieList();
+    }, [genre, pagination.activePage, pagination.limit])
+
+    function getMovieList() {
+        setLoading(true);
+        movieAPI.get(`/movies?genreId_like=${genreId}&_page=${pagination.activePage}&_limit=${pagination.limit}`)
+            .then(res => {
+                if (res.data.length !== 0) {
+                    setPagination(pre => ({
+                        ...pre,
+                        'movieList': res.data,
+                        'totalPage': Math.ceil(parseInt(res.headers['x-total-count']) / pagination.limit)
+                    }));
+                } else {
+                    setPagination(pre => ({
+                        ...pre,
+                        'movieList': [],
+                        'totalPage': 0
+                    }));
+                }
             })
             .catch(err => console.log(err))
             .finally(() =>
                 setTimeout(() => setLoading(false), 1000)
-            )
-    }, [])
+            );
+    };
+
+    function handleChangePage(e) {
+        setPagination(pre => ({
+            ...pre,
+            'activePage': parseInt(e.target.innerText)
+        }));
+    }
 
     return (
-        <Container>
-            <Row>
-                <h2 className={MovieListStyle.list_title}>{type.toUpperCase()}</h2>
+        <>
+            <Row className="flex-column">
+                <h2 className={MovieListStyle.list_header}>{genre && genre.name.toUpperCase()}</h2>
+                <p className={MovieListStyle.list_header}>
+                    {`Showing ${pagination.movieList.length !== 0 ? pagination.activePage : 0} of ${pagination.totalPage}`}
+                </p>
             </Row>
             <Row>
                 <Col className={MovieListStyle.list_cards}>
                     {
                         isLoading ?
-                            <ListSkeleton /> :
-                            (movieList.length !== 0 && movieList.map((movie) => (
-                                <Card movie={movie} key={movie.id} />
-                            )))
+                            <ListSkeleton number={pagination.limit} /> :
+                            (
+                                pagination.movieList.length !== 0 ? pagination.movieList.map((movie) => (
+                                    <Card movie={movie} key={movie.id} />
+                                ))
+                                    :
+                                    <div className={MovieListStyle.list_no_result}>
+                                        <h3>No movies found</h3>
+                                    </div>
+                            )
                     }
                 </Col>
             </Row>
             <Row className="mt-5">
                 <Col>
-                    <Pagination>
-                        <Pagination.First/>
-                        <Pagination.Prev />
-                        <Pagination.Item>{1}</Pagination.Item>
-                        <Pagination.Ellipsis disabled />
-
-                        <Pagination.Item>{11}</Pagination.Item>
-                        <Pagination.Item active>{page}</Pagination.Item>
-                        <Pagination.Item>{13}</Pagination.Item>
-
-                        <Pagination.Ellipsis disabled />
-                        <Pagination.Item>{20}</Pagination.Item>
-                        <Pagination.Next />
-                        <Pagination.Last />
+                    <Pagination className="justify-content-center">
+                        {
+                            Array.from({ length: pagination.totalPage }, (_, index) => {
+                                return (
+                                    <Pagination.Item key={index} active={pagination.activePage === index + 1} onClick={handleChangePage}> {index + 1} </Pagination.Item>
+                                );
+                            })
+                        }
                     </Pagination>
                 </Col>
             </Row>
-        </Container>
+        </>
     )
 }
 
