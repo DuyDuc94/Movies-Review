@@ -35,6 +35,7 @@ export default function Login({ setUser }) {
 			.then(res => {
 				if (res.data[0] !== undefined) {
 					setUser(res.data[0]);
+					sessionStorage.setItem('user', JSON.stringify(res.data[0]));
 
 					//Handle Remember me (local storage)
 					if (userLogin.remember) {

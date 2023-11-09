@@ -1,0 +1,87 @@
+.movie_intro {
+    width: 100%;
+    position: relative;
+}
+
+.movie_intro>img {
+    border-radius: 5px;
+    height: 50vh;
+    object-fit: cover;
+}
+
+.movie_intro>div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 1));
+}
+
+.movie_detail {
+    flex-direction: row;
+    margin-top: -20vh;
+    padding: 0px 5rem 3rem 5rem;
+}
+
+.movie_detail_left>img {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.86) 0px 22px 40px 6px;
+    border-radius: 10px;
+}
+
+.movie_detail_right {
+    color: white;
+}
+
+.movie_name {
+    font-weight: 600;
+    font-size: 3rem;
+}
+
+.movie_voteCount {
+    margin-left: 1rem;
+}
+
+.movie_genres {
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+
+}
+
+.movie_genre {
+    padding: .5rem;
+    border: 2px solid white;
+    border-radius: 20px;
+    margin-right: 1rem;
+}
+
+.synopsis_text {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.synopsisText>div:last-of-type {
+    margin-left: auto;
+}
+
+.movie_heading {
+    font-size: 2.2rem;
+}
+
+.action_btn_group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.action_btn {
+    width: 250px;
+    padding: 1rem;
+    background-color: transparent;
+    border-radius: 50px;
+}

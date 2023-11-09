@@ -5,11 +5,11 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { Login, Register } from './components/Index';
 import Error404 from './pages/404';
-import { Home, Movie, MovieList, Test } from './pages/Index';
+import { Home, MovieDetail, MovieList, Test } from './pages/Index';
 
 function App() {
 
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : undefined);
 
   return (
     <div className='App'>
@@ -27,7 +27,7 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login setUser={setUser} />} />
                   <Route path="/genre/:genreId" element={<MovieList />}></Route>
-                  <Route path="/movie/:id" element={<Movie />}></Route>
+                  <Route path="/movie/:id" element={<MovieDetail user={user} />}></Route>
                   <Route path="/test" element={<Test />}></Route>
                   <Route path="/*" element={<Error404 />}></Route>
                 </Routes>
