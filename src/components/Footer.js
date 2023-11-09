@@ -2,6 +2,7 @@ import { } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Container, Row } from "react-bootstrap";
 import FooterStyle from './css/Footer.module.css';
+import { faFacebook, faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer(params) {
 	return (
@@ -24,17 +25,17 @@ export default function Footer(params) {
 					<ul>
 						<li>
 							<a href="https://facebook.com/duyduclh">
-								<FontAwesomeIcon />Facebook
+								<FontAwesomeIcon icon={faFacebook}/> Facebook
 							</a>
 						</li>
 						<li>
 							<a href="https://github.com/DuyDucLH">
-								<FontAwesomeIcon />Github
+								<FontAwesomeIcon icon={faGithub} /> Github
 							</a>
 						</li>
 						<li>
 							<a href="mailto:duyduc.luonghuu@gmail.com">
-								<FontAwesomeIcon />Email
+								<FontAwesomeIcon icon={faGoogle} /> Email
 							</a>
 						</li>
 					</ul>
@@ -46,17 +47,17 @@ export default function Footer(params) {
 					<ul>
 						<li>
 							<a href="https://facebook.com/duyduclh">
-								<FontAwesomeIcon />Facebook
+								<FontAwesomeIcon icon={faFacebook}/> Facebook
 							</a>
 						</li>
 						<li>
-							<a href="https://github.com/DuyDucLH" >
-								<FontAwesomeIcon />Github
+							<a href="https://github.com/DuyDucLH">
+								<FontAwesomeIcon icon={faGithub} /> Github
 							</a>
 						</li>
 						<li>
 							<a href="mailto:duyduc.luonghuu@gmail.com">
-								<FontAwesomeIcon />Email
+								<FontAwesomeIcon icon={faGoogle} /> Email
 							</a>
 						</li>
 					</ul>

@@ -1,10 +1,13 @@
 * {
   margin: 0;
   padding: 0;
+
 }
 
 .App {
-  background-color: #1b1c26;
+  background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/05/Black-Background-Images.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
 }
 
@@ -19,4 +22,16 @@
   font-size: 20px;
   line-height: 1.42857;
   background-color: #202D3A;
+}
+
+.btn-circle:hover {
+  background-color: rgb(255, 194, 16, .7);
+}
+
+.btn-circle:active {
+  background-color: rgb(255, 194, 16, 50%);
+}
+
+.btn-circle:focus {
+  background-color: rgb(255, 194, 16, 50%);
 }
