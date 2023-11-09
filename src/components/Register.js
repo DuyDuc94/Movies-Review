@@ -195,7 +195,7 @@ export default function Register() {
                     <Card.Footer>
                         <div className="d-flex justify-content-center">
                             <span>
-                                Have an account? <Link to={'/register'}> Sign In</Link>
+                                Have an account? <Link to={'/login'}> Sign In</Link>
                             </span>
                         </div>
                         <div className="d-flex justify-content-center">

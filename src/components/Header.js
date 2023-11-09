@@ -1,4 +1,4 @@
-import { faBell, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEdit, faGear, faHeart, faHome, faRightFromBracket, faRightToBracket, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Nav, NavDropdown, Navbar, Row } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import TextStyle from '../assets/css/Text.module.css';
 import logo from '../assets/images/logo.png';
 import HeaderStyle from './css/Header.module.css';
 
-export default function Header({user, setUser}) {
+export default function Header({ user, setUser }) {
 
 	const [genres, setGenres] = useState([]);
 
@@ -94,19 +94,22 @@ function RightNav({ user, setUser }) {
 					user ?
 						<>
 							<Dropdown.Menu align={'right'}>
-								<Dropdown.Item href="#">Home</Dropdown.Item>
-								<Dropdown.Item href="#">Settings</Dropdown.Item>
-								<Dropdown.Item href="#">Help</Dropdown.Item>
+								<Dropdown.Item as={Link} to={'/'}><FontAwesomeIcon icon={faHome}/> Home</Dropdown.Item>
+								<Dropdown.Item href="#"><FontAwesomeIcon icon={faHeart}/> My Favorites</Dropdown.Item>
+								<Dropdown.Item href="#"><FontAwesomeIcon icon={faGear}/> Settings</Dropdown.Item>
 								<Dropdown.Divider />
-								<Dropdown.Item onClick={() => setUser(undefined)}>Logout</Dropdown.Item>
+								<Dropdown.Item onClick={() => {
+									setUser(undefined);
+									sessionStorage.removeItem('user');
+								}}><FontAwesomeIcon icon={faRightFromBracket}/> Logout</Dropdown.Item>
 							</Dropdown.Menu>
 						</>
 						:
 						<>
 							<Dropdown.Menu align={'right'}>
-								<Dropdown.Item as={Link} to={'/login'}>Login</Dropdown.Item>
+								<Dropdown.Item as={Link} to={'/login'}><FontAwesomeIcon icon={faRightToBracket}/> Login</Dropdown.Item>
 								<Dropdown.Divider />
-								<Dropdown.Item as={Link} to={'/register'}>Register</Dropdown.Item>
+								<Dropdown.Item as={Link} to={'/register'}><FontAwesomeIcon icon={faEdit}/> Register</Dropdown.Item>
 							</Dropdown.Menu>
 						</>
 				}

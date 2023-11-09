@@ -1,0 +1,108 @@
+.comment-box {
+	padding: 5px;
+}
+
+.comment-area textarea {
+	resize: none;
+	border: 1px solid #ad9f9f;
+}
+
+.comment-btn {
+	text-align: right;
+	margin: 15px 0px 0px 0px;
+}
+
+.form-control:focus {
+	color: #495057;
+	background-color: #fff;
+	border-color: #ffffff;
+	outline: 0;
+	box-shadow: 0 0 0 1px rgb(246, 200, 0) !important;
+}
+
+.rating {
+	display: flex;
+	margin-top: -10px;
+	flex-direction: row-reverse;
+	margin-left: -4px;
+	float: left;
+}
+
+.rating>input {
+	display: none
+}
+
+.rating>label {
+	position: relative;
+	width: 19px;
+	font-size: 25px;
+	color: rgb(246, 200, 0);
+	cursor: pointer;
+}
+
+.rating>label::before {
+	content: "\2605";
+	position: absolute;
+	opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+	opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+	opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+	opacity: 0.4
+}
+
+
+.comment-list-card {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: transparent !important;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+	border: 1px solid rgb(246, 200, 0);
+	border-radius: 1px
+}
+
+.comment-list-card-header {
+	padding-bottom: 0px !important;
+}
+
+.comment-list-card-body {
+	padding: 0px 15px !important;
+}
+
+.comment-row {
+	border: 1px solid rgb(246, 200, 0) !important;
+	border-radius: 10px;
+	padding: 15px;
+	display: flex;
+	margin: 10px 15px;
+}
+
+.comment-text {
+	padding-left: 15px;
+}
+
+.comment-text > h5 {
+	color:rgb(246, 200, 0);
+}
+
+
+.comment-row:hover {
+	background: rgba(246, 200, 0, .1)
+}
