@@ -39,7 +39,11 @@ export default function Home({ type }) {
 				setCarouselMovies(res.data)
 			})
 			.catch(err => console.log(err))
-			.finally(() => setLoading(false));
+			.finally(() => {
+				setTimeout(() => {
+					setLoading(false)
+				}, 1000);
+			});
 	}
 
 	return (
@@ -85,7 +89,7 @@ export default function Home({ type }) {
 
 function SkeletonCarousel() {
 	return (
-		<SkeletonTheme baseColor="#202020" highlightColor="#444">
+		<SkeletonTheme baseColor="#000000" highlightColor="#444">
 			<div className={CarouselStyle.carousel}>
 				<Skeleton height={'90vh'} />
 			</div>

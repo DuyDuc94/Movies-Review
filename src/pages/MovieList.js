@@ -24,6 +24,10 @@ export default function MovieList() {
         movieAPI.get(`/genres/${genreId}`)
             .then(res => {
                 setGenre(res.data);
+                setPagination(pre => ({
+                    ...pre,
+                    'activePage': 1
+                }));
             })
             .catch(err => console.log(err))
     }, [genreId]);
@@ -52,7 +56,9 @@ export default function MovieList() {
             })
             .catch(err => console.log(err))
             .finally(() =>
-                setTimeout(() => setLoading(false), 1000)
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000)
             );
     };
 

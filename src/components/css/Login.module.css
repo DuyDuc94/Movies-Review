@@ -1,0 +1,21 @@
+.card {
+	width: 400px;
+	color: black;
+	box-shadow: 5px 15px 41px 4px #6d6969;
+}
+
+.input_group_prepend > span {
+	width: 50px;
+	background-color: #FFC312;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px 0 0 5px;
+}
+
+.btn_submit {
+	width: 100px;
+	background-color: #FFC312 !important;
+	color: black !important;
+
+}

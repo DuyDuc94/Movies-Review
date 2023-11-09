@@ -1,15 +1,14 @@
+import { faBell, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faBell, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
-import { Row, Col, Form, Button, Nav, Dropdown, InputGroup, Container, Navbar, NavDropdown } from 'react-bootstrap';
-import logo from '../assets/images/logo.png';
-import HeaderStyle from './css/Header.module.css';
-import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Button, Col, Dropdown, Nav, NavDropdown, Navbar, Row } from 'react-bootstrap';
+import { Link, NavLink } from 'react-router-dom';
 import movieAPI from '../api/MovieLocalDbAPI';
 import TextStyle from '../assets/css/Text.module.css';
+import logo from '../assets/images/logo.png';
+import HeaderStyle from './css/Header.module.css';
 
-
-export default function Header() {
+export default function Header({user, setUser}) {
 
 	const [genres, setGenres] = useState([]);
 
@@ -42,7 +41,7 @@ export default function Header() {
 						{/* <NavDropdown.Divider /> */}
 					</NavDropdown>
 				</Nav>
-				<RightNav />
+				<RightNav user={user} setUser={setUser} />
 			</Navbar.Collapse>
 		</Navbar>
 	);
@@ -55,7 +54,7 @@ function styleActiveLink(isActive) {
 	};
 }
 
-function RightNav() {
+function RightNav({ user, setUser }) {
 	return (
 		<>
 			<Nav.Link as={Button} className='btn-circle'>
@@ -91,13 +90,26 @@ function RightNav() {
 				<Dropdown.Toggle as={Button} className="btn-circle">
 					<FontAwesomeIcon icon={faUser} />
 				</Dropdown.Toggle>
-				<Dropdown.Menu align={'right'}>
-					<Dropdown.Item href="#">Home</Dropdown.Item>
-					<Dropdown.Item href="#">Settings</Dropdown.Item>
-					<Dropdown.Item href="#">Help</Dropdown.Item>
-					<Dropdown.Divider />
-					<Dropdown.Item href="#">Logout</Dropdown.Item>
-				</Dropdown.Menu>
+				{
+					user ?
+						<>
+							<Dropdown.Menu align={'right'}>
+								<Dropdown.Item href="#">Home</Dropdown.Item>
+								<Dropdown.Item href="#">Settings</Dropdown.Item>
+								<Dropdown.Item href="#">Help</Dropdown.Item>
+								<Dropdown.Divider />
+								<Dropdown.Item onClick={() => setUser(undefined)}>Logout</Dropdown.Item>
+							</Dropdown.Menu>
+						</>
+						:
+						<>
+							<Dropdown.Menu align={'right'}>
+								<Dropdown.Item as={Link} to={'/login'}>Login</Dropdown.Item>
+								<Dropdown.Divider />
+								<Dropdown.Item as={Link} to={'/register'}>Register</Dropdown.Item>
+							</Dropdown.Menu>
+						</>
+				}
 			</Dropdown>
 		</>
 	);
