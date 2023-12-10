@@ -15,7 +15,7 @@ export default function MovieList() {
     const [pagination, setPagination] = useState({
         'movieList': [],
         'totalPage': 0,
-        'limit': 10,
+        'limit': 8,
         'activePage': 1,
     });
 
@@ -111,7 +111,7 @@ export default function MovieList() {
     )
 }
 
-function ListSkeleton({ number = 10 }) {
+function ListSkeleton({ number = 8 }) {
     let cards = Array(number).fill(0);
     return (
         <>
